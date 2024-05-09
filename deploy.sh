@@ -1,20 +1,20 @@
-# echo " Relax for now "
+echo " Relax for now "
 
-# git pull
+git pull
 
-# echo " Pulling from git "
+echo " Pulling from git "
 
-# npm run build
+npm run build
 
-# echo " Building the project "
+echo " Building the project "
 
 
-# scp -r dist/* ubuntu@44.202.158.101:/var/www/westempire.online/html
+scp -r dist/* ubuntu@44.202.158.101:/var/www/westempire.online/html
 
-# echo "Successful"
+echo "Successful"
 
-git add .
+# git add .
 
-git commit -m "updated"
+# git commit -m "updated"
 
-git push -u origin main
+# git push -u origin main

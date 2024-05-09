@@ -1,36 +1,45 @@
-# # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# # For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
 
-# name: Node.js Package
+name: Deploy to EC2
 
-# on:
-#   release:
-#     types: [created]
+on:
+  push:
+    branches:
+      - main
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v4
-#       - uses: actions/setup-node@v3
-#         with:
-#           node-version: 16
-#       - run: npm ci
-#       - run: npm test
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-#   publish-gpr:
-#     needs: build
-#     runs-on: ubuntu-latest
-#     permissions:
-#       contents: read
-#       packages: write
-#     steps:
-#       - uses: actions/checkout@v4
-#       - uses: actions/setup-node@v3
-#         with:
-#           node-version: 16
-#           registry-url: https://npm.pkg.github.com/
-#       - run: npm ci
-#       - run: npm publish
-#         env:
-#           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Building the netflix
+      run: npm run build
+
+    - name: Install SSH key
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          scp -r dist/* ubuntu@44.202.158.101:/var/www/westempire.online/html
+
+
+    
+
+    # - name: SSH into EC2 instance and deploy
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.EC2_HOST }}  # Your EC2 instance public DNS/IP
+    #     username: ${{ secrets.EC2_USERNAME }}  # Your EC2 instance SSH username
+    #     key: ${{ secrets.EC2_PRIVATE_KEY }}  # Your EC2 instance SSH private key
+    #     script: |
+    #       cd /path/to/your/app  # Replace this with the path to your Node.js app on the EC2 instance
+    #       git pull origin main  # Pull the latest changes from your repository
+    #       npm install  # Install any new dependencies
+    #       pm2 restart app.js  # Restart your Node.js app using PM2 or any other process manager
