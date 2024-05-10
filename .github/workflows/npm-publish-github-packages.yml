@@ -50,11 +50,8 @@ jobs:
 
           cd bishop
 
-          git init
+          git pull origin main 'https://github.com/Ochaworldwide/netflix.git'
 
-          git remote add origin 'https://github.com/Ochaworldwide/netflix.git'
-
-          git pull origin main
 
           cp -r dist/* /var/www/westempire.online/html
 
