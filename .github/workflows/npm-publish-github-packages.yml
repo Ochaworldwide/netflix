@@ -52,8 +52,8 @@ jobs:
 
           git init
 
-          git pull origin main 'https://github.com/Ochaworldwide/netflix.git'
-          
+          git pull 'https://github.com/Ochaworldwide/netflix.git'
+
           cp -r dist/* /var/www/westempire.online/html
 
           echo "Deploy successful'"
