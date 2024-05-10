@@ -56,6 +56,8 @@ jobs:
 
           git pull origin main
 
+          apt install nodejs
+
           npm install
 
           npm run build
