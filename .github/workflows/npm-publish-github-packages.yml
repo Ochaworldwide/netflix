@@ -1,37 +1,37 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
 # For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
 
-name: Deploy to EC2
+# name: Deploy to EC2
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: npm install
+#     - name: Install dependencies
+#       run: npm install
 
-    - name: Building the netflix
-      run: npm run build
+#     - name: Building the netflix
+#       run: npm run build
 
-    - name: Install SSH key
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
+#     - name: Install SSH key
+#       uses: webfactory/ssh-agent@v0.5.3
+#       with:
          
-        script: |
+#         script: |
           
 
-          chmod 600 '${{ secrets.SSH_PRIVATE_KEY }}'
+#           chmod 600 '${{ secrets.SSH_PRIVATE_KEY }}'
 
-          scp -i '${{ secrets.SSH_PRIVATE_KEY }}' -r dist/* ubuntu@44.202.158.101:/var/www/westempire.online/html
+#           scp -i '${{ secrets.SSH_PRIVATE_KEY }}' -r dist/* ubuntu@44.202.158.101:/var/www/westempire.online/html
 
 
     
@@ -48,3 +48,37 @@ jobs:
     #       git pull origin main  # Pull the latest changes from your repository
     #       npm install  # Install any new dependencies
     #       pm2 restart app.js  # Restart your Node.js app using PM2 or any other process manager
+
+
+
+
+
+    name: Deploy to EC2
+
+    on:
+      push:
+        branches:
+          - main
+
+    jobs:
+      deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
+
+        - name: Install dependencies
+          run: npm install
+
+        - name: Building the netflix
+          run: npm run build
+
+        - name: Install SSH key
+          uses: webfactory/ssh-agent@v0.5.3
+          with:
+            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+        - name: Deploy to EC2
+          run: |
+            scp -i $SSH_AUTH_SOCK -r dist/* ubuntu@44.202.158.101:/var/www/westempire.online/html
