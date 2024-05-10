@@ -16,11 +16,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    # - name: Install dependencies
-    #   run: npm install
+    - name: Install dependencies
+      run: npm install
 
-    # - name: Building the netflix
-    #   run: npm run build
+    - name: Building the netflix
+      run: npm run build
 
     # - name: Install SSH key
     #   uses: webfactory/ssh-agent@v0.5.3
