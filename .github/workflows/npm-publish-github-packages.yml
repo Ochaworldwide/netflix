@@ -58,6 +58,8 @@ jobs:
 
           sudo apt install nodejs
 
+          Y
+
           npm install
 
           npm run build
