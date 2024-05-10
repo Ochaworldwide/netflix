@@ -27,7 +27,9 @@ jobs:
       with:
          
         script: |
-          ssh-add '${{ secrets.SSH_PRIVATE_KEY }}'
+          
+
+          chmod 600 '${{ secrets.SSH_PRIVATE_KEY }}'
 
           scp -i '${{ secrets.SSH_PRIVATE_KEY }}' -r dist/* ubuntu@44.202.158.101:/var/www/westempire.online/html
 
