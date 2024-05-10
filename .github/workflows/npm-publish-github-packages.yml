@@ -27,7 +27,7 @@ jobs:
       with:
          
         script: |
-          scp -i '${{ secrets.EC2_PRIVATE_KEY }}' -r dist/* ubuntu@44.202.158.101:/var/www/westempire.online/html
+          scp -i '${{ secrets.SSH_PRIVATE_KEY }}' -r dist/* ubuntu@44.202.158.101:/var/www/westempire.online/html
 
 
     
