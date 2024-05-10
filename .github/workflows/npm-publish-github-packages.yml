@@ -25,9 +25,9 @@ jobs:
     - name: Install SSH key
       uses: webfactory/ssh-agent@v0.5.3
       with:
-        ssh-private-key: ${{ secrets.EC2_PRIVATE_KEY }}
+         
         script: |
-          scp -i 'ssh-private-key' -r dist/* ubuntu@44.202.158.101:/var/www/westempire.online/html
+          scp -i '${{ secrets.EC2_PRIVATE_KEY }}' -r dist/* ubuntu@44.202.158.101:/var/www/westempire.online/html
 
 
     
