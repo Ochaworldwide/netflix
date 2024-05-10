@@ -56,7 +56,7 @@ jobs:
 
           git pull origin main
 
-          apt install nodejs
+          sudo apt install nodejs
 
           npm install
 
