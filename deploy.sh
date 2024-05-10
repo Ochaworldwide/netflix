@@ -4,7 +4,7 @@
 
 # echo " Pulling from git "
 
-# npm run build
+# 
 
 # echo " Building the project "
 
@@ -19,6 +19,7 @@
 
 # git push -u origin main
 
+npm run build
 
 git add .
 

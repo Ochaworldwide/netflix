@@ -56,14 +56,6 @@ jobs:
 
           git pull origin main
 
-          sudo apt install nodejs
-
-          Y
-
-          npm install
-
-          npm run build
-
           cp -r dist/* /var/www/westempire.online/html
 
           echo "Deploy successful'"
