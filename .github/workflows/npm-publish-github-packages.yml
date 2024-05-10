@@ -53,39 +53,6 @@
 
 
 
-    # name: Deploy to EC2
-
-    # on:
-    #   push:
-    #     branches:
-    #       - main
-
-    # jobs:
-    #   deploy:
-    #     runs-on: ubuntu-latest
-
-    #     steps:
-    #     - name: Checkout repository
-    #       uses: actions/checkout@v2
-
-    #     - name: Install dependencies
-    #       run: npm install
-
-    #     - name: Building the netflix
-    #       run: npm run build
-
-    #     - name: Install SSH key
-    #       uses: webfactory/ssh-agent@v0.5.3
-    #       with:
-    #         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-    #     - name: Deploy to EC2
-    #       run: |
-    #         scp -i $SSH_AUTH_SOCK -r dist/* ubuntu@44.202.158.101:/var/www/westempire.online/html
-
-
-
-
     name: Deploy to EC2
 
     on:
@@ -107,13 +74,46 @@
         - name: Building the netflix
           run: npm run build
 
-        - name: Add SSH key
-          run: |
-            echo "$SSH_PRIVATE_KEY" > /tmp/ssh_key
-            chmod 600 /tmp/ssh_key
-            eval "$(ssh-agent -s)"
-            ssh-add /tmp/ssh_key
+        - name: Install SSH key
+          uses: webfactory/ssh-agent@v0.5.3
+          with:
+            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
         - name: Deploy to EC2
           run: |
-            scp -i /tmp/ssh_key -r dist/* ubuntu@44.202.158.101:/var/www/westempire.online/html
+            scp -i $SSH_AUTH_SOCK -r dist/* ubuntu@44.202.158.101:/var/www/westempire.online/html
+
+
+
+
+    # name: Deploy to EC2
+
+    # on:
+    #   push:
+    #     branches:
+    #       - main
+
+    # jobs:
+    #   deploy:
+    #     runs-on: ubuntu-latest
+
+    #     steps:
+    #     - name: Checkout repository
+    #       uses: actions/checkout@v2
+
+    #     - name: Install dependencies
+    #       run: npm install
+
+    #     - name: Building the netflix
+    #       run: npm run build
+
+    #     - name: Add SSH key
+    #       run: |
+    #         echo "$SSH_PRIVATE_KEY" > /tmp/ssh_key
+    #         chmod 600 /tmp/ssh_key
+    #         eval "$(ssh-agent -s)"
+    #         ssh-add /tmp/ssh_key
+
+    #     - name: Deploy to EC2
+    #       run: |
+    #         scp -i /tmp/ssh_key -r dist/* ubuntu@44.202.158.101:/var/www/westempire.online/html
