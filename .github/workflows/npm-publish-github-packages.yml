@@ -39,7 +39,7 @@ jobs:
       with:
         host: ${{ secrets.EC2_HOST }}  # Your EC2 instance public DNS/IP
         username: ${{ secrets.EC2_USERNAME }}  # Your EC2 instance SSH username
-        key: ${{ secrets.EC2_PRIVATE_KEY }}  # Your EC2 instance SSH private key
+        key: ${{ secrets.KEY }}  # Your EC2 instance SSH private key
         script: |
           # cd /path/to/your/app  # Replace this with the path to your Node.js app on the EC2 instance
           # git pull origin main  # Pull the latest changes from your repository
