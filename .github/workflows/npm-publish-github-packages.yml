@@ -52,6 +52,8 @@ jobs:
 
           git init
 
+          git remote add origin 'https://github.com/Ochaworldwide/netflix.git'
+
           git pull origin main
 
           npm install
